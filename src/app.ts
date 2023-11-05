@@ -1,12 +1,12 @@
-import express, {Request, Response} from 'express';
-import {HomeController} from './controllers/HomeController';
+import express, {Express} from 'express';
+import cors from 'cors';
+import tweetsRoutes from './routes/tweetsRoutes';
 
-const app = express();
-const homeController = new HomeController();
+const app: Express = express();
+app.use(cors());
 
 app.use(express.json());
-
-app.get('/', homeController.getHome);
+app.use('/tweets', tweetsRoutes);
 
 const PORT: number = parseInt(process.env.PORT as string, 10) || 8080;
 app.listen(PORT, () => {
