@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2018", // Node.js가 지원하는 ECMAScript 버전에 따라 설정
+    "module": "commonjs", // Node.js 모듈 시스템
+    "lib": ["es2018"], // Node.js 환경에 필요한 라이브러리
+    "outDir": "dist", // 컴파일된 JS 파일이 저장될 디렉토리
+    "rootDir": "src", // TS 소스 파일이 위치한 디렉토리
+    "strict": true, // 모든 엄격한 타입 검사 옵션 활성화
+    "esModuleInterop": true, // CommonJS 모듈을 ES6 모듈처럼 사용할 수 있게 함
+    "skipLibCheck": true, // 성능을 위해 타입 선언 파일의 타입 체크를 건너뜀
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"], // 컴파일할 파일들
+  "exclude": ["node_modules"] // 컴파일에서 제외할 파일들
+}

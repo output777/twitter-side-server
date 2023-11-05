@@ -1,0 +1,45 @@
+# 의존성 디렉토리
+node_modules/
+
+# 빌드 출력
+/dist
+/build
+/out
+/*.tsbuildinfo
+
+# 로그 파일
+*.log
+*.csv
+
+# 런타임 데이터
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# 디렉토리에 생성된 Mac OS 파일 시스템 파일
+.DS_Store
+
+# 디렉토리에 생성된 Windows 파일 시스템 파일
+Thumbs.db
+
+# 편집기 디렉토리와 파일
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# 환경 설정 파일
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 민감한 정보나 보안 관련 파일
+*.pem
+*.key
+
+# 특정 개인 설정 파일
+*.swp
+*~
