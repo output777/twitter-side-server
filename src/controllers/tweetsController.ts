@@ -1,33 +1,41 @@
-import {Request, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
+import * as tweetData from '../data/data';
 
 export class TweetsController {
-  public getAllTweets(req: Request, res: Response) {
-    // 모든 트윗 검색 로직
-    res.send('모든 트윗 가져오기');
+  public async getTweets(req: Request, res: Response, next: NextFunction) {
+    const username = req.query.username as string;
+    const data = await (username ? tweetData.getAll() : tweetData.getByUsername(username));
+    return res.status(200).json(data);
   }
 
-  public getTweetsByUser(req: Request, res: Response) {
-    // 특정 사용자의 트윗 검색 로직
-    res.send('사용자의 트윗 가져오기');
+  public async getTweetsById(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.tweetId;
+    const data = await tweetData.getById(id);
+    return data
+      ? res.status(200).json(data)
+      : res.status(404).json({message: `Tweet id${id} not found`});
   }
 
-  public createTweet(req: Request, res: Response) {
-    // 특정 사용자의 트윗 검색 로직
-    console.log(req.body);
-    const tweetContent = req.body.content;
-    // tweetContent를 사용하여 데이터베이스에 새 트윗을 저장하는 로직을 구현합니다.
-
-    // 예를 들어 데이터베이스에 저장하는 함수가 성공적으로 실행되었다면,
-    res.status(201).send({message: '트윗이 성공적으로 작성되었습니다', content: tweetContent});
+  public async createTweet(req: Request, res: Response, next: NextFunction) {
+    const {text, name, username, url} = req.body;
+    const tweet = await tweetData.create({text, name, username, url});
+    return res.status(201).json(tweet);
   }
 
-  public deleteTweet(req: Request, res: Response) {
-    // 트윗 삭제 로직
-    res.send('트윗 삭제하기');
+  public async deleteTweet(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.tweetId;
+    await tweetData.remove(id);
+    return res.sendStatus(204);
   }
 
-  public editTweet(req: Request, res: Response) {
-    // 트윗 수정 로직
-    res.send('트윗 수정하기');
+  public async updateTweet(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.tweetId;
+    const text = req.body.text;
+    const tweet = await tweetData.update({id, text});
+    if (tweet) {
+      res.status(200).json(tweet);
+    } else {
+      return res.status(404).json({message: `Tweet id(${id}) not found`});
+    }
   }
 }

@@ -1,1 +1,1 @@
-export {TweetsController} from './TweetsController';
+export {TweetsController} from './tweetsController';
